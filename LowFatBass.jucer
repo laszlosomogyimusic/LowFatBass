@@ -5,7 +5,7 @@
               companyWebsite="www.laszlosomogyimusic.com" companyEmail="laszlo@laszlosomogyimusic.com"
               pluginCharacteristicsValue="pluginIsSynth,pluginWantsMidiIn"
               pluginManufacturerCode="Somm" pluginCode="Lfbs" cppLanguageStandard="17"
-              displaySplashScreen="1">
+              displaySplashScreen="1" bundleIdentifier="com.laszlosomogyimusic.lowfatbass">
   <MAINGROUP id="xscOio" name="LowFatBass">
     <GROUP id="{B47E1981-56B3-37E2-58FE-59BCDF14E47E}" name="Source">
       <FILE id="lbbbaF" name="PluginProcessor.cpp" compile="1" resource="0"
