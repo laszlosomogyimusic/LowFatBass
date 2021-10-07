@@ -52,8 +52,20 @@ public:
     //==============================================================================
     void getStateInformation (juce::MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
+    void loadFile(const juce::String& path);
 
 private:
+    juce::Synthesiser sampler;
+    const int numVoices{ 3 };
+    juce::AudioFormatManager formatManager;
+    juce::AudioFormatReader* formatReader{ nullptr };
+    juce::AudioBuffer<float> waveForm;
+    std::atomic<bool> isNotePlayed{ false };
+    std::atomic<int> sampleCount{ 0 };
+
+
+        
+
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (LowFatBassAudioProcessor)
 };

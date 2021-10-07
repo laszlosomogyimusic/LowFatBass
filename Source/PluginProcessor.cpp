@@ -22,10 +22,15 @@ LowFatBassAudioProcessor::LowFatBassAudioProcessor()
                        )
 #endif
 {
+    for (int i = 0; i < numVoices; i++)
+    {
+        sampler.addVoice(new juce::SamplerVoice());
+    }
 }
 
 LowFatBassAudioProcessor::~LowFatBassAudioProcessor()
 {
+    delete formatReader;
 }
 
 //==============================================================================
@@ -95,6 +100,7 @@ void LowFatBassAudioProcessor::prepareToPlay (double sampleRate, int samplesPerB
 {
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
+    sampler.setCurrentPlaybackSampleRate(sampleRate);
 }
 
 void LowFatBassAudioProcessor::releaseResources()
@@ -150,12 +156,33 @@ void LowFatBassAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, j
     // the samples and the outer loop is handling the channels.
     // Alternatively, you can process the samples with the channels
     // interleaved by keeping the same state.
-    for (int channel = 0; channel < totalNumInputChannels; ++channel)
-    {
-        auto* channelData = buffer.getWritePointer (channel);
+    //for (int channel = 0; channel < totalNumInputChannels; ++channel)
+    //{
+    //    auto* channelData = buffer.getWritePointer (channel);
 
-        // ..do something to the data...
+    //    // ..do something to the data...
+    //}
+    juce::MidiMessage m;
+    juce::MidiBuffer::Iterator it{ midiMessages };
+
+    int sample;
+
+    while (it.getNextEvent(m, sample))
+    {
+        if (m.isNoteOn())
+        {
+            isNotePlayed = true;
+        }
+        else if (m.isNoteOff())
+        {
+            isNotePlayed = false;
+        }
     }
+
+    sampleCount = isNotePlayed ? sampleCount += buffer.getNumSamples() : 0;
+
+    sampler.renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples());
+
 }
 
 //==============================================================================
@@ -181,6 +208,29 @@ void LowFatBassAudioProcessor::setStateInformation (const void* data, int sizeIn
 {
     // You should use this method to restore your parameters from this memory block,
     // whose contents will have been created by the getStateInformation() call.
+}
+
+void LowFatBassAudioProcessor::loadFile(const juce::String& path)
+{
+    sampler.clearSounds();
+    auto file = juce::File(path);
+    formatManager.registerBasicFormats();
+    formatReader = formatManager.createReaderFor(file);
+
+    auto sampleLength = static_cast<int>(formatReader->lengthInSamples);
+
+    waveForm.setSize(1, sampleLength);
+    formatReader->read(&waveForm, 0, sampleLength, 0, true, false);
+
+    auto buffer = waveForm.getReadPointer(0);
+
+    juce::BigInteger range;
+    range.setRange(52, 1, true);
+
+    juce::BigInteger e1;
+    e1 = 52;
+
+    sampler.addSound(new juce::SamplerSound("E1", *formatReader, range, 52, 0.0, 0.6, 60));
 }
 
 //==============================================================================

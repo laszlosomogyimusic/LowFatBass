@@ -8,6 +8,10 @@
               displaySplashScreen="1" bundleIdentifier="com.laszlosomogyimusic.lowfatbass">
   <MAINGROUP id="xscOio" name="LowFatBass">
     <GROUP id="{B47E1981-56B3-37E2-58FE-59BCDF14E47E}" name="Source">
+      <GROUP id="{8DC22BD8-1F22-A4BB-DDC9-ADCF72BE7DA7}" name="GUI">
+        <FILE id="wyn5Id" name="PianoRoll.cpp" compile="1" resource="0" file="Source/PianoRoll.cpp"/>
+        <FILE id="IxqUqF" name="PianoRoll.h" compile="0" resource="0" file="Source/PianoRoll.h"/>
+      </GROUP>
       <FILE id="lbbbaF" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>
       <FILE id="UgOvqx" name="PluginProcessor.h" compile="0" resource="0"
@@ -15,6 +19,12 @@
       <FILE id="TvJpcq" name="PluginEditor.cpp" compile="1" resource="0"
             file="Source/PluginEditor.cpp"/>
       <FILE id="vxgpJm" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
+    </GROUP>
+    <GROUP id="{27E9945F-24A5-76B5-1C9F-A30411DCA8FB}" name="Resources">
+      <GROUP id="{6BCDABDB-9CC0-57CE-5433-D5D04AD45883}" name="Audio"/>
+      <GROUP id="{B4623C77-AE5C-2450-26A7-340C5A46482C}" name="Pictures">
+        <FILE id="aLFXXH" name="bass.jpg" compile="0" resource="1" file="Resources/Pictures/bass.jpg"/>
+      </GROUP>
     </GROUP>
   </MAINGROUP>
   <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_VST3_CAN_REPLACE_VST2="0"/>
