@@ -33,7 +33,7 @@ private:
 
     LowFatBassAudioProcessor& audioProcessor;
 
-    PianoRoll pianoRoll;
+    //PianoRoll pianoRoll;
 
     juce::OwnedArray<Component> components;
     std::unique_ptr<juce::BubbleMessageComponent> bubbleMessage;

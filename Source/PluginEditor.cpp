@@ -11,11 +11,14 @@
 
 //==============================================================================
 LowFatBassAudioProcessorEditor::LowFatBassAudioProcessorEditor (LowFatBassAudioProcessor& p)
-    : AudioProcessorEditor(&p), pianoRoll{ p }, audioProcessor(p)
+    : AudioProcessorEditor(&p), audioProcessor(p)
 {
     backgroundImage = juce::ImageCache::getFromMemory(BinaryData::bass_jpg, BinaryData::bass_jpgSize);
 
-    p.loadFile("c://temp//lfb//001_E1.wav");
+  
+
+    p.loadFile("C://Dev//lfb//001_E1.wav");
+    
 
     path.addEllipse(10, 20, 10, 10);
     normal.setPath(path);
@@ -48,7 +51,7 @@ LowFatBassAudioProcessorEditor::LowFatBassAudioProcessorEditor (LowFatBassAudioP
         db->onClick = popupMessageCallback;
     }
 
-    addAndMakeVisible(pianoRoll);
+    //addAndMakeVisible(pianoRoll);
     setSize (1024, 768);
 }
 
@@ -66,7 +69,7 @@ void LowFatBassAudioProcessorEditor::resized()
 {
     // This is generally where you'll want to lay out the positions of any
     // subcomponents in your editor..
-    pianoRoll.setBoundsRelative(0.0f, 0.75f, 1.0f, 0.25f);
+    //pianoRoll.setBoundsRelative(0.0f, 0.75f, 1.0f, 0.25f);
 }
 
 template <typename ComponentType>
